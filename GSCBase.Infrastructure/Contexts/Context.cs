@@ -4,6 +4,8 @@ using GSCBase.Domain.Entities.Auth;
 using GSCBase.Domain.Entities.Base;
 using GSCBase.Infrastructure.Mapping.Base;
 using GSCBase.Infrastructure.Mappings;
+using GSCBase.Domain.Entities.Cadastro;
+using GSCBase.Infrastructure.Mapping.Cadastro;
 
 namespace GSCBase.Infrastructure.Contexts
 {
@@ -16,12 +18,13 @@ namespace GSCBase.Infrastructure.Contexts
         {
         }
 
+        public DbSet<Produto> Produto { get; set; }
+
         #region BASE
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Pessoa> Pessoa { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Unidade> Unidade { get; set; }
-        public DbSet<Module> Module { get; set; }
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<Estado> Estado { get; set; }
         public DbSet<Cidade> Cidade { get; set; }
@@ -34,12 +37,12 @@ namespace GSCBase.Infrastructure.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Produto>(new ProdutoMap().Configure);
             #region BASE 
             modelBuilder.Entity<ApplicationUser>(new ApplicationUserMap().Configure);
             modelBuilder.Entity<Pessoa>(new PessoaMap().Configure);
             modelBuilder.Entity<Cliente>(new ClienteMap().Configure);
             modelBuilder.Entity<Unidade>(new UnidadeMap().Configure);
-            modelBuilder.Entity<Module>(new ModuleMap().Configure);
             modelBuilder.Entity<TipoUsuario>(new TipoUsuarioMap().Configure);
             modelBuilder.Entity<Estado>(new EstadoMap().Configure);
             modelBuilder.Entity<Cidade>(new CidadeMap().Configure);

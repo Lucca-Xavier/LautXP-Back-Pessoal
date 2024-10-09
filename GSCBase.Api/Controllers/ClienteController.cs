@@ -17,19 +17,16 @@ namespace GSCBase.Api.Controllers
         private readonly IClienteService clienteService;
         private readonly IPessoaService pessoaService;
         private readonly IUnidadeService unidadeService;
-        private readonly IModuleService moduleService;
         private readonly ICommonService commonService;
         public ClienteController(UserManager<ApplicationUser> userManager,
                                  IClienteService _clienteService,
                                  IPessoaService _pessoaService,
                                  IUnidadeService _unidadeService,
-                                 IModuleService _moduleService,
                                  ICommonService _commonService) : base(userManager)
         {
             clienteService = _clienteService;
             pessoaService = _pessoaService;
             unidadeService = _unidadeService;
-            moduleService = _moduleService;
             commonService = _commonService;
         }
 
@@ -105,7 +102,6 @@ namespace GSCBase.Api.Controllers
             if (cliente == null)
             {
                 Unidade unidade = unidadeService.FindById(this.GetIdUnidade());
-                Module module = moduleService.FindById(this.GetIdModule());
                 cliente = new Cliente(pessoa, null, null, this.GetUsuarioLogado());
             }
 

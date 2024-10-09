@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GSCBase.Domain.Entities.Cadastro;
+using GSCBase.Infrastructure.IRepositories.Base;
 
 namespace GSCBase.Infrastructure.IRepositories.Cadastro
 {
-    internal interface IProdutoRepository
+    public interface IProdutoRepository : IBaseRepository<Produto>
     {
     }
 }

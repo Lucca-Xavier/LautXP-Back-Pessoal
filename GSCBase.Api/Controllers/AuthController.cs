@@ -52,7 +52,7 @@ namespace GSCBase.Api.Controllers
         [Route("register")]
         public IActionResult Register([FromBody] RegisterViewModel model)
         {
-            bool valido = true; //Utils.ValidarCPF(model.UserName);
+            bool valido = true;
             if (valido == true)
             {
                 ApplicationUser user = new ApplicationUser(model.UserName, model.PhoneNumber, model.Email, "register", model.UserName);

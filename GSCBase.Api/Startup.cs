@@ -28,6 +28,10 @@ using GSCBase.Domain.Models.Configs;
 using Hangfire;
 using Hangfire.SqlServer;
 using JobMonitor.Filters;
+using GSCBase.Application.IServices.Cadastro;
+using GSCBase.Application.Services.Cadastro;
+using GSCBase.Infrastructure.IRepositories.Cadastro;
+using GSCBase.Infrastructure.Repositories.Cadastro;
 
 namespace GSCBase.Api
 {
@@ -98,7 +102,6 @@ namespace GSCBase.Api
             services.AddTransient<IPessoaService, PessoaService>();
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<IUnidadeService, UnidadeService>();
-            services.AddTransient<IModuleService, ModuleService>();
             services.AddTransient<IEstadoService, EstadoService>();
             services.AddTransient<ICidadeService, CidadeService>();
             services.AddTransient<IBairroService, BairroService>();
@@ -108,7 +111,6 @@ namespace GSCBase.Api
 
             services.AddTransient<IPessoaRepository, PessoaRepository>();
             services.AddTransient<IClienteRepository, ClienteRepository>();
-            services.AddTransient<IModuleRepository, ModuleRepository>();
             services.AddTransient<IUnidadeRepository, UnidadeRepository>();
             services.AddTransient<IEstadoRepository, EstadoRepository>();
             services.AddTransient<ICidadeRepository, CidadeRepository>();
@@ -120,6 +122,10 @@ namespace GSCBase.Api
             #region UTILS SERVICES
             services.AddTransient<IEmailService, EmailService>();
             #endregion
+
+            services.AddTransient<IProdutoService, ProdutoService>();
+
+            services.AddTransient<IProdutoRepository, ProdutoRepository>();
 
             #endregion
 

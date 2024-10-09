@@ -30,21 +30,20 @@ namespace GSCBase.Api.Controllers
 
         protected ApplicationUser GetUsuarioLogado()
         {
-            //try
-            //{
-            //    string userId = this.User.Claims.FirstOrDefault(c => c.Type == "userId").Value;
-            //    var user = userManager.FindByIdAsync(userId).Result;
-            //    if (user == null)
-            //    {
-            //        throw new UnauthorizedAccessException("Acesso nao autorizado! Usuário não encontrado");
-            //    }
-            //    return user;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new UnauthorizedAccessException("Acesso não autorizado!");
-            //}
-                return userManager.FindByIdAsync("768ed3ed-56b5-4af3-94c5-6babb08767dc").Result;            
+            try
+            {
+                string userId = this.User.Claims.FirstOrDefault(c => c.Type == "userId").Value;
+                var user = userManager.FindByIdAsync(userId).Result;
+                if (user == null)
+                {
+                    throw new UnauthorizedAccessException("Acesso nao autorizado! Usuário não encontrado");
+                }
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new UnauthorizedAccessException("Acesso não autorizado!");
+            }
         }
 
         protected ApplicationUser GetUsuarioLogadoAdministrador()
