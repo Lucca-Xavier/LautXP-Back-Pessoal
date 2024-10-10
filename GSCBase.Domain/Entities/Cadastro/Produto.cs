@@ -7,7 +7,7 @@ namespace GSCBase.Domain.Entities.Cadastro
     {
         public string Rotulo { get; set; }
         public int Tamanho { get; set; }
-        public Produto(){}
+        public Produto() { }
         public Produto(string rotulo, int tamanho, ApplicationUser user)
         {
             if (string.IsNullOrEmpty(rotulo))
