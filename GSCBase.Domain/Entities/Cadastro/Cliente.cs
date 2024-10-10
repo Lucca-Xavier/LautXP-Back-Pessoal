@@ -7,7 +7,7 @@ namespace GSCBase.Domain.Entities.Cadastro
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public Cliente() {}
-        public Cliente(string nome, string cpf)
+        public Cliente(string nome, string cpf, Auth.ApplicationUser applicationUser)
         {
             if (string.IsNullOrEmpty(nome)) 
             {
@@ -27,7 +27,7 @@ namespace GSCBase.Domain.Entities.Cadastro
             Cpf = cpf;
         }
 
-        public void Alterar(string nome, string cpf)
+        public void Alterar(string nome, string cpf, Auth.ApplicationUser applicationUser)
         {
             if (string.IsNullOrEmpty(nome))
             {
