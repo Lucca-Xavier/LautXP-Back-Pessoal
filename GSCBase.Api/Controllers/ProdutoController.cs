@@ -26,11 +26,12 @@ namespace GSCBase.Api.Controllers
         [HttpGet]
         public List<ProdutoModel> Get()
         {
-            return service.Get(x => x.IsActive).Select(x => new ProdutoModel
+            return service.Get().Select(x => new ProdutoModel
             {
                 Id = x.Id,
                 Rotulo = x.Rotulo,
-                Tamanho = x.Tamanho
+                Tamanho = x.Tamanho,
+                IsActive = x.IsActive,                
             }).ToList();
         }
 
@@ -44,7 +45,8 @@ namespace GSCBase.Api.Controllers
             {
                 Id = id,
                 Rotulo = produto.Rotulo,
-                Tamanho = produto.Tamanho
+                Tamanho = produto.Tamanho,
+                IsActive = produto.IsActive,
             });
         }
 
