@@ -37,28 +37,46 @@ namespace GSCBase.Api.Controllers
         }
 
         [HttpGet("{id}")]
-
         public IActionResult Get(int id)
         {
-            var arquivo = service.FindById(id);
-            if (formato is null) return BadRequest("Não foi possível encontrar");
+            var publicidade = service.FindById(id);
+            if (publicidade is null) return BadRequest("Não foi possível encontrar");
 
-            return Ok(new PublicidadeModel { Id = id, Arquivo = arquivo.Arquivo, Formato = formato.Formato });
-
-
+            return Ok(new PublicidadeModel
+            {
+                Id = id,
+                Arquivo = publicidade.Arquivo,
+                Formato = publicidade.Formato
+            });
         }
-    
-    
 
-    }
+        [HttpPost]
+        public IActionResult Post([FromBody] PublicidadeModel model)
+        {
+            Publicidade publicidade;
+            if (model.Id > 0)
+            {
+                publicidade = service.FindById(model.Id);
+                publicidade.Alterar(model.Arquivo, model.Formato, GetUsuarioLogado());
+            }
+            else
+            {
+                publicidade = new Publicidade(model.Arquivo, model.Formato, GetUsuarioLogado());
+            }
+            service.Save(publicidade);
+            return Ok();
+        }
 
-    public class PublicidadeModel
-    {
-        public string Formato { get; internal set; }
-        public string Arquivo { get; internal set; }
-        public int Id { get; internal set; }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (service.Delete(id, GetUsuarioLogado())) return Ok();
+
+            return BadRequest("Não foi possível excluir o registro");
+        }
     }
 }
+
 
 
 
