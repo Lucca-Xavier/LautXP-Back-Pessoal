@@ -1,5 +1,23 @@
-using System;
-using System.Globalization;
+using GSCBase.Application.Exceptions.Logs;
+using GSCBase.Application.IServices.Base;
+using GSCBase.Application.IServices.Cadastro;
+using GSCBase.Application.ISevices.Auth;
+using GSCBase.Application.Service.Base;
+using GSCBase.Application.Services.Auth;
+using GSCBase.Application.Services.Base;
+using GSCBase.Application.Services.Cadastro;
+using GSCBase.Domain.Entities.Auth;
+using GSCBase.Domain.Models.Configs;
+using GSCBase.Infrastructure.Contexts;
+using GSCBase.Infrastructure.IRepositories.Auth;
+using GSCBase.Infrastructure.IRepositories.Base;
+using GSCBase.Infrastructure.IRepositories.Cadastro;
+using GSCBase.Infrastructure.Repositories.Auth;
+using GSCBase.Infrastructure.Repositories.Base;
+using GSCBase.Infrastructure.Repositories.Cadastro;
+using Hangfire;
+using Hangfire.SqlServer;
+using JobMonitor.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -11,27 +29,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using GSCBase.Application.Exceptions.Logs;
-using GSCBase.Application.IServices.Base;
-using GSCBase.Application.ISevices.Auth;
-using GSCBase.Application.Service.Base;
-using GSCBase.Application.Services.Auth;
-using GSCBase.Application.Services.Base;
-using GSCBase.Domain.Entities.Auth;
-using GSCBase.Infrastructure.Contexts;
-using GSCBase.Infrastructure.IRepositories.Base;
-using GSCBase.Infrastructure.Repositories.Base;
+using System;
 using System.Collections.Generic;
-using GSCBase.Infrastructure.IRepositories.Auth;
-using GSCBase.Infrastructure.Repositories.Auth;
-using GSCBase.Domain.Models.Configs;
-using Hangfire;
-using Hangfire.SqlServer;
-using JobMonitor.Filters;
-using GSCBase.Application.IServices.Cadastro;
-using GSCBase.Application.Services.Cadastro;
-using GSCBase.Infrastructure.IRepositories.Cadastro;
-using GSCBase.Infrastructure.Repositories.Cadastro;
+using System.Globalization;
 
 namespace GSCBase.Api
 {
@@ -124,8 +124,14 @@ namespace GSCBase.Api
             #endregion
 
             services.AddTransient<IProdutoService, ProdutoService>();
+            services.AddTransient<ICampanhaService, CampanhaService>();
 
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
+            services.AddTransient<ICampanhaRepository, CampanhaRepository>();
+
+
+
+
 
             #endregion
 

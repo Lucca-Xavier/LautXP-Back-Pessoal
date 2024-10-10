@@ -35,7 +35,7 @@ namespace GSCBase.Domain.Entities.Auth
             this.IsActive = true;
             this.DtCreate = DateTime.Now;
             this.UserCreate = userCreate;
-            IdTipoUsuario = 2;
+            IdTipoUsuario = 1;
         }
 
         public void DefinirTipoUsuario(TipoUsuario tipoUsuario, string userAlter)

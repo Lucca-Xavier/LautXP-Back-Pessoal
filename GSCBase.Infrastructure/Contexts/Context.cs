@@ -20,6 +20,8 @@ namespace GSCBase.Infrastructure.Contexts
 
         public DbSet<Produto> Produto { get; set; }
 
+        public DbSet<Campanha> Campanha { get; set; }
+
         #region BASE
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Pessoa> Pessoa { get; set; }
@@ -48,6 +50,7 @@ namespace GSCBase.Infrastructure.Contexts
             modelBuilder.Entity<Cidade>(new CidadeMap().Configure);
             modelBuilder.Entity<Bairro>(new BairroMap().Configure);
             #endregion
+            modelBuilder.Entity<Campanha>(new CampanhaMap().Configure);
 
             base.OnModelCreating(modelBuilder);
         }
