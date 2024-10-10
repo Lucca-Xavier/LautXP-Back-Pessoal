@@ -123,8 +123,10 @@ namespace GSCBase.Api
             services.AddTransient<IEmailService, EmailService>();
             #endregion
 
+            services.AddTransient<IPublicidadeService, ProdutoService>();
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<ICampanhaService, CampanhaService>();
+
 
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddTransient<ICampanhaRepository, CampanhaRepository>();
