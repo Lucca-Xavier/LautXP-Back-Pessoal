@@ -9,8 +9,8 @@ namespace GSCBase.Infrastructure.Mapping.Cadastro
         public override void Configure(EntityTypeBuilder<Publicidade> builder)
         {
 
+            builder.Property(m => m.Nome);
             builder.Property(m => m.Arquivo);
-            builder.Property(m => m.Formato);
 
             base.Configure(builder);
         }

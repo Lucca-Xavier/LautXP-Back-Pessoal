@@ -32,6 +32,10 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using ClienteRepository = GSCBase.Infrastructure.Repositories.Cadastro.ClienteRepository;
+using ClienteService = GSCBase.Application.Services.Cadastro.ClienteService;
+using IClienteRepository = GSCBase.Infrastructure.IRepositories.Cadastro.IClienteRepository;
+using IClienteService = GSCBase.Application.IServices.Cadastro.IClienteService;
 
 namespace GSCBase.Api
 {
@@ -123,7 +127,7 @@ namespace GSCBase.Api
             services.AddTransient<IEmailService, EmailService>();
             #endregion
 
-            services.AddTransient<IPublicidadeService, ProdutoService>();
+            services.AddTransient<IPublicidadeService, PublicidadeService>();
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<ICampanhaService, CampanhaService>();
 
