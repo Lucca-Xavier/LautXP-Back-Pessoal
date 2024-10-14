@@ -3,7 +3,6 @@ using GSCBase.Domain.Entities.Auth;
 using GSCBase.Domain.Entities.Cadastro;
 using GSCBase.Domain.Models.Cadastro;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ namespace GSCBase.Api.Controllers
     public class PublicidadeController : BaseController
     {
         private readonly IPublicidadeService service;
-        private object formato;
 
         public PublicidadeController(
             UserManager<ApplicationUser> userManager,
@@ -31,34 +29,53 @@ namespace GSCBase.Api.Controllers
             return service.Get(x => x.IsActive).Select(x => new PublicidadeModel
             {
                 Id = x.Id,
+                Nome = x.Nome,
                 Arquivo = x.Arquivo,
-                Formato = x.Formato
+                
             }).ToList();
         }
 
         [HttpGet("{id}")]
-
         public IActionResult Get(int id)
         {
-            var arquivo = service.FindById(id);
-            if (formato is null) return BadRequest("Não foi possível encontrar");
+            var publicidade = service.FindById(id);
+            if (publicidade is null) return BadRequest("Não foi possível encontrar");
 
-            return Ok(new PublicidadeModel { Id = id, Arquivo = arquivo.Arquivo, Formato = formato.Formato });
-
-
+            return Ok(new PublicidadeModel
+            {
+                Id = id,
+                Nome = publicidade.Nome,
+                Arquivo = publicidade.Arquivo,
+            });
         }
-    
-    
 
-    }
+        [HttpPost]
+        public IActionResult Post([FromBody] PublicidadeModel model)
+        {
+            Publicidade publicidade;
+            if (model.Id > 0)
+            {
+                publicidade = service.FindById(model.Id);
+                publicidade.Alterar(model.Nome, model.Arquivo, GetUsuarioLogado());
+            }
+            else
+            {
+                publicidade = new Publicidade(model.Nome, model.Arquivo, GetUsuarioLogado());
+            }
+            service.Save(publicidade);
+            return Ok();
+        }
 
-    public class PublicidadeModel
-    {
-        public string Formato { get; internal set; }
-        public string Arquivo { get; internal set; }
-        public int Id { get; internal set; }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (service.Delete(id, GetUsuarioLogado())) return Ok();
+
+            return BadRequest("Não foi possível excluir o registro");
+        }
     }
 }
+
 
 
 

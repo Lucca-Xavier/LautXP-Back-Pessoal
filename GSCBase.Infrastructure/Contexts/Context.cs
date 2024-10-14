@@ -23,6 +23,7 @@ namespace GSCBase.Infrastructure.Contexts
         public DbSet<Produto> Produto { get; set; }
 
         public DbSet<Campanha> Campanha { get; set; }
+        public DbSet<Venda> Venda { get; set; }
 
         #region BASE
         public DbSet<ApplicationUser> ApplicationUser { get; set; }

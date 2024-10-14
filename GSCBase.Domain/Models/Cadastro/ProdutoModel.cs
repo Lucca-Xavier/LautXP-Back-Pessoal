@@ -6,6 +6,5 @@
         public string Rotulo { get; set; }
         public int Tamanho { get; set; }
         public bool IsActive { get; set; }
-
     }
 }
