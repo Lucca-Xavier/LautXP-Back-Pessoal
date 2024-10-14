@@ -1,4 +1,5 @@
 ﻿using GSCBase.Domain.Entities.Base;
+using GSCBase.Domain.Models.Auth;
 
 namespace GSCBase.Domain.Entities.Cadastro
 {
@@ -25,6 +26,7 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Nome = nome;
             Cpf = cpf;
+            SetUserCreate(applicationUser);
         }
 
         public void Alterar(string nome, string cpf, Auth.ApplicationUser applicationUser)
@@ -45,6 +47,7 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Nome = nome;
             Cpf = cpf;
+            SetUserAlter(applicationUser);
         }
     }
 }

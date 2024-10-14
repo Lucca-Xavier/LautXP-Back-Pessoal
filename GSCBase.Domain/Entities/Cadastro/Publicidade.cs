@@ -1,11 +1,5 @@
 ﻿using GSCBase.Domain.Entities.Auth;
 using GSCBase.Domain.Entities.Base;
-using GSCBase.Domain.Models.Auth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GSCBase.Domain.Entities.Cadastro
 {
@@ -16,6 +10,7 @@ namespace GSCBase.Domain.Entities.Cadastro
         public string Nome { get; set; }
         public string Arquivo { get; set; }
 
+        public Publicidade(){}
 
         // Construtor da classe
         public Publicidade(string nome, string arquivo, ApplicationUser user)
@@ -35,6 +30,7 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Arquivo = arquivo;
             Nome = nome;
+            SetUserCreate(user);
         }
 
          // Este código altera algo
@@ -52,6 +48,7 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Arquivo = arquivo;
             Nome = nome;
+            SetUserAlter(applicationUser);
         }
     }
 }

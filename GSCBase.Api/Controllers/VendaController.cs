@@ -19,12 +19,17 @@ namespace GSCBase.Api.Controllers
     {
 
         private readonly IVendaService service;
-
+        private readonly IClienteService clienteService;
+        private readonly IProdutoService produtoService;
         public VendaController(
            UserManager<ApplicationUser> userManager,
-           IVendaService service) : base(userManager)
+           IVendaService service,
+           IClienteService clienteService,
+           IProdutoService produtoService) : base(userManager)
         {
             this.service = service;
+            this.clienteService = clienteService;
+            this.produtoService = produtoService;
         }
 
         [HttpGet]
@@ -48,14 +53,16 @@ namespace GSCBase.Api.Controllers
         public IActionResult Post([FromBody] VendaModel model)
         {
             Venda venda;
+            Cliente cliente = clienteService.FindById(model.IdCliente);
+            Produto produto = produtoService.FindById(model.IdProduto);
             if (model.Id > 0)
             {
                 venda = service.FindById(model.Id);
-                venda.Alterar(model.Quantidade, model.IdCliente, model.IdProduto, GetUsuarioLogado());
+                venda.Alterar(model.Quantidade, cliente, produto, GetUsuarioLogado());
             }
             else
             {
-                venda = new Venda(model.Quantidade, model.IdCliente, model.IdProduto, GetUsuarioLogado());
+                venda = new Venda(model.Quantidade, cliente, produto, GetUsuarioLogado());
             }
             service.Save(venda);
             return Ok();
