@@ -6,6 +6,8 @@ using GSCBase.Infrastructure.Mapping.Base;
 using GSCBase.Infrastructure.Mappings;
 using GSCBase.Domain.Entities.Cadastro;
 using GSCBase.Infrastructure.Mapping.Cadastro;
+using Cliente = GSCBase.Domain.Entities.Cadastro.Cliente;
+using ClienteMap = GSCBase.Infrastructure.Mapping.Cadastro.ClienteMap;
 
 namespace GSCBase.Infrastructure.Contexts
 {
@@ -21,6 +23,7 @@ namespace GSCBase.Infrastructure.Contexts
         public DbSet<Produto> Produto { get; set; }
 
         public DbSet<Campanha> Campanha { get; set; }
+        public DbSet<Venda> Venda { get; set; }
 
         #region BASE
         public DbSet<ApplicationUser> ApplicationUser { get; set; }

@@ -15,3 +15,4 @@ namespace GSCBase.Infrastructure.Mapping.Cadastro
         }
     }
 }
+    

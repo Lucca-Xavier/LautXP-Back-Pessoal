@@ -3,7 +3,6 @@ using GSCBase.Domain.Entities.Auth;
 using GSCBase.Domain.Entities.Cadastro;
 using GSCBase.Domain.Models.Cadastro;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ namespace GSCBase.Api.Controllers
     public class PublicidadeController : BaseController
     {
         private readonly IPublicidadeService service;
-        private object formato;
 
         public PublicidadeController(
             UserManager<ApplicationUser> userManager,
@@ -31,8 +29,9 @@ namespace GSCBase.Api.Controllers
             return service.Get(x => x.IsActive).Select(x => new PublicidadeModel
             {
                 Id = x.Id,
+                Nome = x.Nome,
                 Arquivo = x.Arquivo,
-                Formato = x.Formato
+                
             }).ToList();
         }
 
@@ -45,8 +44,8 @@ namespace GSCBase.Api.Controllers
             return Ok(new PublicidadeModel
             {
                 Id = id,
+                Nome = publicidade.Nome,
                 Arquivo = publicidade.Arquivo,
-                Formato = publicidade.Formato
             });
         }
 
@@ -57,11 +56,11 @@ namespace GSCBase.Api.Controllers
             if (model.Id > 0)
             {
                 publicidade = service.FindById(model.Id);
-                publicidade.Alterar(model.Arquivo, model.Formato, GetUsuarioLogado());
+                publicidade.Alterar(model.Nome, model.Arquivo, GetUsuarioLogado());
             }
             else
             {
-                publicidade = new Publicidade(model.Arquivo, model.Formato, GetUsuarioLogado());
+                publicidade = new Publicidade(model.Nome, model.Arquivo, GetUsuarioLogado());
             }
             service.Save(publicidade);
             return Ok();

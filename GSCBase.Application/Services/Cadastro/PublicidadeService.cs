@@ -5,7 +5,7 @@ using GSCBase.Infrastructure.IRepositories.Cadastro;
 
 namespace GSCBase.Application.Services.Cadastro
 {
-    public class PublicidadeService : BaseService<Publicidade>
+    public class PublicidadeService : BaseService<Publicidade>, IPublicidadeService
     {
         private readonly IPublicidadeRepository repository;
 
