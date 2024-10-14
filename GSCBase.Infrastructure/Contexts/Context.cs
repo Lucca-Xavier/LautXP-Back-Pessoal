@@ -20,8 +20,8 @@ namespace GSCBase.Infrastructure.Contexts
         {
         }
 
+        public DbSet<Publicidade> Publicidade { get; set; }
         public DbSet<Produto> Produto { get; set; }
-
         public DbSet<Campanha> Campanha { get; set; }
         public DbSet<Venda> Venda { get; set; }
 
@@ -43,6 +43,11 @@ namespace GSCBase.Infrastructure.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Produto>(new ProdutoMap().Configure);
+            modelBuilder.Entity<Campanha>(new CampanhaMap().Configure);
+            modelBuilder.Entity<Venda>(new VendaMap().Configure);
+            modelBuilder.Entity<Publicidade>(new PublicidadeMap().Configure);
+
+
             #region BASE 
             modelBuilder.Entity<ApplicationUser>(new ApplicationUserMap().Configure);
             modelBuilder.Entity<Pessoa>(new PessoaMap().Configure);
@@ -53,8 +58,6 @@ namespace GSCBase.Infrastructure.Contexts
             modelBuilder.Entity<Cidade>(new CidadeMap().Configure);
             modelBuilder.Entity<Bairro>(new BairroMap().Configure);
             #endregion
-            modelBuilder.Entity<Campanha>(new CampanhaMap().Configure);
-
             base.OnModelCreating(modelBuilder);
         }
     }

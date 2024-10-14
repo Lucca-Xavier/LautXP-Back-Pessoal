@@ -134,11 +134,7 @@ namespace GSCBase.Api
 
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddTransient<ICampanhaRepository, CampanhaRepository>();
-
-
-
-
-
+            services.AddTransient<IPublicidadeRepository, PublicidadeRepository>();
             #endregion
 
             services.AddCors();

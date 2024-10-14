@@ -5,8 +5,12 @@ using GSCBase.Domain.Models.Cadastro;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GSCBase.Api.Controllers
 {
@@ -15,23 +19,23 @@ namespace GSCBase.Api.Controllers
     public class PublicidadeController : BaseController
     {
         private readonly IPublicidadeService service;
-
+        private readonly IConfiguration _config;
         public PublicidadeController(
             UserManager<ApplicationUser> userManager,
-            IPublicidadeService service) : base(userManager)
+            IPublicidadeService service,
+            IConfiguration config) : base(userManager)
         {
             this.service = service;
+            _config = config;
         }
 
         [HttpGet]
         public List<PublicidadeModel> Get()
         {
-            return service.Get(x => x.IsActive).Select(x => new PublicidadeModel
+            return service.Get().Select(x => new PublicidadeModel
             {
                 Id = x.Id,
-                Nome = x.Nome,
-                Arquivo = x.Arquivo,
-                
+                Nome = x.Nome
             }).ToList();
         }
 
@@ -45,23 +49,49 @@ namespace GSCBase.Api.Controllers
             {
                 Id = id,
                 Nome = publicidade.Nome,
-                Arquivo = publicidade.Arquivo,
+                Arquivo = publicidade.Arquivo
             });
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] PublicidadeModel model)
+        public async Task<IActionResult> Post([FromForm] PublicidadeModel model)
         {
+            if (model.Anexo is null) return BadRequest("Anexos não selecionados");
+
+            string ext = model.Anexo.FileName[model.Anexo.FileName.LastIndexOf(".")..];
+            ext = ext.ToLower();
+
+            if (ext != ".jpg" &&
+                ext != ".jpeg" &&
+                ext != ".png")
+            {
+                return BadRequest("Tipo de arquivo não suportado");
+            }
+
+            string diretorio = _config.GetValue<string>("Anexos");
+            if (!Directory.Exists(diretorio))
+                Directory.CreateDirectory(diretorio);
+
+            string nomeArquivo = Guid.NewGuid() + Path.GetExtension(model.Anexo.FileName);
+            string path = Path.Combine(
+                         _config.GetValue<string>("Anexos"), nomeArquivo);
+
+            using (FileStream stream = new(path, FileMode.Create))
+            {
+                await model.Anexo.CopyToAsync(stream);
+            }
+
             Publicidade publicidade;
             if (model.Id > 0)
             {
                 publicidade = service.FindById(model.Id);
-                publicidade.Alterar(model.Nome, model.Arquivo, GetUsuarioLogado());
+                publicidade.Alterar(model.Nome, nomeArquivo, GetUsuarioLogado());
             }
             else
             {
-                publicidade = new Publicidade(model.Nome, model.Arquivo, GetUsuarioLogado());
+                publicidade = new Publicidade(model.Nome, nomeArquivo, GetUsuarioLogado());
             }
+
             service.Save(publicidade);
             return Ok();
         }

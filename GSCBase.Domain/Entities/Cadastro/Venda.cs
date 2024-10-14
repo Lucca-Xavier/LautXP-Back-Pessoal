@@ -1,5 +1,6 @@
 ﻿using GSCBase.Domain.Entities.Auth;
 using GSCBase.Domain.Entities.Base;
+using GSCBase.Domain.Models.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,33 +30,28 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             if ( quantidade < 1)
             {
-                throw new System.ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
+                throw new ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
             }
 
             Cliente = cliente ?? throw new ArgumentNullException(nameof(cliente));
             Produto = produto ?? throw new ArgumentNullException(nameof(produto));
             Quantidade = quantidade;
+            SetUserCreate(user);
         }
 
         // Este código altera algo
-        public void Alterar(int quantidade, int idCliente, int idProduto, ApplicationUser applicationUser)
+        public void Alterar(int quantidade, Cliente cliente, Produto produto, ApplicationUser user)
         {
             if (quantidade < 1)
             {
-                throw new System.ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
+                throw new ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
             }
 
-            if (idCliente < 1)
-            {
-                throw new System.ArgumentException($"'{nameof(idCliente)}' não pode ser nulo nem vazio.", nameof(idCliente));
-            }
-
-            if (idProduto < 1)
-            {
-                throw new System.ArgumentException($"'{nameof(idProduto)}' não pode ser nulo nem vazio.", nameof(idProduto));
-            }
-
+            Cliente = cliente ?? throw new ArgumentNullException(nameof(cliente));
+            Produto = produto ?? throw new ArgumentNullException(nameof(produto));
             Quantidade = quantidade;
+            SetUserAlter(user);
         }
+
     }
 }

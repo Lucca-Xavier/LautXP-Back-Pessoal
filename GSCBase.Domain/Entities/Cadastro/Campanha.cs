@@ -30,7 +30,7 @@ namespace GSCBase.Domain.Entities.Cadastro
             SetUserCreate(user);
 
         }
-        public void Alterar(string nome, DateTime inicio, DateTime fim, ApplicationUser applicationUser)
+        public void Alterar(string nome, DateTime inicio, DateTime fim, ApplicationUser user)
         {
             if (string.IsNullOrEmpty(nome))
             {
@@ -40,6 +40,7 @@ namespace GSCBase.Domain.Entities.Cadastro
             Nome = nome;
             Inicio = inicio;
             Fim = fim;
+            SetUserAlter(user);
         }
     }
 }
