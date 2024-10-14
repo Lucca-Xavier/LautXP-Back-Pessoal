@@ -22,7 +22,7 @@ namespace GSCBase.Domain.Entities.Cadastro
         public Venda() { }
 
 
-        public Venda(int quantidade, int idCliente, int idProduto, ApplicationUser user)
+        public Venda(int quantidade, Cliente cliente, Produto produto, ApplicationUser user)
         {
 
             // Validação de arquivo não nulo nem vazio
@@ -32,16 +32,8 @@ namespace GSCBase.Domain.Entities.Cadastro
                 throw new System.ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
             }
 
-            if (idCliente < 1)
-            {
-                throw new System.ArgumentException($"'{nameof(idCliente)}' não pode ser nulo nem vazio.", nameof(idCliente));
-            }
-
-            if (idProduto < 1)
-            {
-                throw new System.ArgumentException($"'{nameof(idProduto)}' não pode ser nulo nem vazio.", nameof(idProduto));
-            }
-
+            Cliente = cliente ?? throw new ArgumentNullException(nameof(cliente));
+            Produto = produto ?? throw new ArgumentNullException(nameof(produto));
             Quantidade = quantidade;
         }
 
