@@ -6,6 +6,8 @@ using GSCBase.Infrastructure.Mapping.Base;
 using GSCBase.Infrastructure.Mappings;
 using GSCBase.Domain.Entities.Cadastro;
 using GSCBase.Infrastructure.Mapping.Cadastro;
+using Cliente = GSCBase.Domain.Entities.Cadastro.Cliente;
+using ClienteMap = GSCBase.Infrastructure.Mapping.Cadastro.ClienteMap;
 
 namespace GSCBase.Infrastructure.Contexts
 {
