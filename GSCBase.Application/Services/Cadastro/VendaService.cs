@@ -1,8 +1,10 @@
-﻿using GSCBase.Application.Services.Base;
+﻿using GSCBase.Application.IServices.Cadastro;
+using GSCBase.Application.Services.Base;
 using GSCBase.Domain.Entities.Cadastro;
 using GSCBase.Domain.Models.Cadastro;
 using GSCBase.Infrastructure.IRepositories.Cadastro;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +13,22 @@ using System.Threading.Tasks;
 
 namespace GSCBase.Application.Services.Cadastro
 {
-    public class VendaService : BaseService<Venda>
+    public class VendaService : BaseService<Venda>, IVendaService
     {
         private readonly IVendaRepository vendaRepository;
         private readonly IClienteRepository clienteRepository;
         private readonly IProdutoRepository produtoRepository;
 
 
-        public VendaService(IVendaRepository repository) : base(repository)
+        public VendaService(
+          IVendaRepository vendaRepository,
+          IClienteRepository clienteRepository,
+          IProdutoRepository produtoRepository) : base(vendaRepository)
         {
-            this.vendaRepository = repository;
+            this.vendaRepository = vendaRepository;
+            this.clienteRepository = clienteRepository;
+            this.produtoRepository = produtoRepository;
+
         }
 
         public List<VendaModel> GetAllVendas()
@@ -58,22 +66,12 @@ namespace GSCBase.Application.Services.Cadastro
         }
 
 
-        public void Save(VendaModel model)
+        
+        public int CalcularPontos(int quantidade, int tamanho, int multiplicador)
         {
-            var cliente = clienteRepository.FindById(model.IdCliente);
-            var produto = produtoRepository.FindById(model.IdProduto);
-
-            var venda = new Venda
-            {
-                IdCliente = model.IdCliente,
-                IdProduto = model.IdProduto,
-                Quantidade = model.Quantidade,
-                Cliente = cliente,
-                Produto = produto
-            };
-            vendaRepository.Save(venda);
+            return quantidade * tamanho * multiplicador;
         }
-
+        
 
 
     }

@@ -11,6 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Mapping\Base\ClienteMap.cs" />
+    <Compile Remove="Repositories\Base\ClienteRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
   </ItemGroup>
 

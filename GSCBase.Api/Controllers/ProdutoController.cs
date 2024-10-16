@@ -57,11 +57,11 @@ namespace GSCBase.Api.Controllers
             if (model.Id > 0)
             {
                 produto = service.FindById(model.Id);
-                produto.Alterar(model.Rotulo, model.Tamanho, GetUsuarioLogado());
+                produto.Alterar(model.Rotulo, model.Tamanho, model.Multiplicador, GetUsuarioLogado());
             }
             else
             {
-                produto = new Produto(model.Rotulo, model.Tamanho, GetUsuarioLogado());
+                produto = new Produto(model.Rotulo, model.Tamanho, model.Multiplicador, GetUsuarioLogado());
             }
             service.Save(produto);
             return Ok();

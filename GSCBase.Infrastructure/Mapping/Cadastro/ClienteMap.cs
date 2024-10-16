@@ -10,6 +10,8 @@ namespace GSCBase.Infrastructure.Mapping.Cadastro
         {
             builder.Property(m => m.Nome);
             builder.Property(m => m.Cpf);
+            builder.Property(m => m.Pontos);
+            builder.Property(m => m.Nascimento);
 
             base.Configure(builder);
         }

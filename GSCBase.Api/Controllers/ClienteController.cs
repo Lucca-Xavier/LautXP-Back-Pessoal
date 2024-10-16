@@ -15,6 +15,7 @@ namespace GSCBase.Api.Controllers
     public class ClienteController : BaseController
     {
         private readonly IClienteService service;
+        private readonly IVendaService vendaService;
         public ClienteController(
             UserManager<ApplicationUser> userManager,
             IClienteService service) : base(userManager)
@@ -29,7 +30,9 @@ namespace GSCBase.Api.Controllers
             {
                 Id = x.Id,
                 Nome = x.Nome,
-                Cpf = x.Cpf
+                Cpf = x.Cpf,
+                Pontos = x.Pontos,
+                Nascimento = x.Nascimento,
             }).ToList();
         }
 
@@ -43,7 +46,9 @@ namespace GSCBase.Api.Controllers
             {
                 Id = id,
                 Nome = cliente.Nome,
-                Cpf = cliente.Cpf
+                Cpf = cliente.Cpf,
+                Pontos = cliente.Pontos,
+                Nascimento = cliente.Nascimento
             });
         }
 
@@ -54,11 +59,11 @@ namespace GSCBase.Api.Controllers
             if (model.Id > 0)
             {
                 cliente = service.FindById(model.Id);
-                cliente.Alterar(model.Nome, model.Cpf, GetUsuarioLogado());
+                cliente.Alterar(model.Nome, model.Cpf, model.Pontos, model.Nascimento,  GetUsuarioLogado());
             }
             else
             {
-                cliente = new Cliente(model.Nome, model.Cpf, GetUsuarioLogado());
+                cliente = new Cliente(model.Nome, model.Cpf, model.Pontos, model.Nascimento, GetUsuarioLogado());
             }
             service.Save(cliente);
             return Ok();

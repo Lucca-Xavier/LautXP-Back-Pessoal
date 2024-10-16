@@ -130,8 +130,10 @@ namespace GSCBase.Api
             services.AddTransient<IPublicidadeService, PublicidadeService>();
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<ICampanhaService, CampanhaService>();
+            services.AddTransient<IVendaService, VendaService>();
 
 
+            services.AddTransient<IVendaRepository, VendaRepository>();
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddTransient<ICampanhaRepository, CampanhaRepository>();
             services.AddTransient<IPublicidadeRepository, PublicidadeRepository>();

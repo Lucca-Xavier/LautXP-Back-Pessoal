@@ -53,20 +53,49 @@ namespace GSCBase.Api.Controllers
         public IActionResult Post([FromBody] VendaModel model)
         {
             Venda venda;
-            Cliente cliente = clienteService.FindById(model.IdCliente);
             Produto produto = produtoService.FindById(model.IdProduto);
+            Cliente cliente = clienteService.FindById(model.IdCliente);
+
+
             if (model.Id > 0)
             {
                 venda = service.FindById(model.Id);
-                venda.Alterar(model.Quantidade, cliente, produto, GetUsuarioLogado());
+                venda.Alterar(model.Quantidade, model.IdCliente, model.IdProduto, GetUsuarioLogado());
             }
             else
             {
-                venda = new Venda(model.Quantidade, cliente, produto, GetUsuarioLogado());
+
+                venda = new Venda(model.Quantidade, model.IdCliente, model.IdProduto, GetUsuarioLogado());
             }
+
+            int total = service.CalcularPontos(model.Quantidade, produto.Tamanho, produto.Multiplicador);
+            cliente.Pontos += total;
+
+            clienteService.Save(cliente);
             service.Save(venda);
             return Ok();
         }
+        /*
+                [HttpPost]
+                public IActionResult Post([FromBody] VendaModel model)
+                {
+                    Venda venda;
+                    Cliente cliente = clienteService.FindById(model.IdCliente);
+                    Produto produto = produtoService.FindById(model.IdProduto);
+                    if (model.Id > 0)
+                    {
+                        venda = service.FindById(model.Id);
+                        venda.Alterar(model.Quantidade, cliente, produto, GetUsuarioLogado());
+                    }
+                    else
+                    {
+                        venda = new Venda(model.Quantidade, cliente, produto, GetUsuarioLogado());
+                    }
+                    service.Save(venda);
+                    return Ok();
+                }
+
+               */
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

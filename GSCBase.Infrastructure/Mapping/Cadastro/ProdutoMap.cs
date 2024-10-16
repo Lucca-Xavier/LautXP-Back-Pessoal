@@ -10,6 +10,7 @@ namespace GSCBase.Infrastructure.Mapping.Cadastro
         {
             builder.Property(m => m.Rotulo);
             builder.Property(m => m.Tamanho);
+            builder.Property(m => m.Multiplicador);
 
             base.Configure(builder);
         }

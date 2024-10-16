@@ -22,13 +22,43 @@ namespace GSCBase.Domain.Entities.Cadastro
 
         public Venda() { }
 
+        
+        public Venda(int quantidade, int idCliente, int idProduto,  ApplicationUser user)
+        {
 
+
+            if ( quantidade < 1)
+            {
+                throw new ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
+            }
+
+            Quantidade = quantidade;
+            IdCliente = idCliente;
+            IdProduto = idProduto;
+            SetUserCreate(user);
+        }
+
+        // Este código altera algo
+        public void Alterar(int quantidade, int idCliente, int idProduto, ApplicationUser user)
+        {
+            if (quantidade < 1)
+            {
+                throw new ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
+            }
+
+            Quantidade = quantidade;
+            IdCliente = idCliente;
+            IdProduto = idProduto;
+            SetUserCreate(user);
+        }
+        
+        /*
         public Venda(int quantidade, Cliente cliente, Produto produto, ApplicationUser user)
         {
 
             // Validação de arquivo não nulo nem vazio
 
-            if ( quantidade < 1)
+            if (quantidade < 1)
             {
                 throw new ArgumentException($"'{nameof(quantidade)}' não pode ser nulo nem vazio.", nameof(quantidade));
             }
@@ -53,5 +83,6 @@ namespace GSCBase.Domain.Entities.Cadastro
             SetUserAlter(user);
         }
 
+        */
     }
 }

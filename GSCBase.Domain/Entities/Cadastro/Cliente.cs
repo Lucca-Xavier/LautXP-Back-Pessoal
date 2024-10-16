@@ -1,5 +1,7 @@
-﻿using GSCBase.Domain.Entities.Base;
+﻿using GSCBase.Domain.Entities.Auth;
+using GSCBase.Domain.Entities.Base;
 using GSCBase.Domain.Models.Auth;
+using System;
 
 namespace GSCBase.Domain.Entities.Cadastro
 {
@@ -7,8 +9,10 @@ namespace GSCBase.Domain.Entities.Cadastro
     {
         public string Nome { get; set; }
         public string Cpf { get; set; }
+        public int Pontos { get; set; }
+        public DateTime Nascimento { get; set; }
         public Cliente() {}
-        public Cliente(string nome, string cpf, Auth.ApplicationUser applicationUser)
+        public Cliente(string nome, string cpf, int pontos, DateTime nascimento, ApplicationUser applicationUser)
         {
             if (string.IsNullOrEmpty(nome)) 
             {
@@ -26,10 +30,12 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Nome = nome;
             Cpf = cpf;
+            Pontos = pontos;
+            Nascimento = nascimento;
             SetUserCreate(applicationUser);
         }
 
-        public void Alterar(string nome, string cpf, Auth.ApplicationUser applicationUser)
+        public void Alterar(string nome, string cpf, int pontos, DateTime nascimento, ApplicationUser applicationUser)
         {
             if (string.IsNullOrEmpty(nome))
             {
@@ -47,6 +53,8 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Nome = nome;
             Cpf = cpf;
+            Pontos = pontos;
+            Nascimento = nascimento;
             SetUserAlter(applicationUser);
         }
     }

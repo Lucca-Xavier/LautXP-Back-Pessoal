@@ -15,5 +15,7 @@ namespace GSCBase.Application.IServices.Cadastro
         List<VendaModel> GetAllVendas();
         VendaModel GetVendaById(int id);
 
+
+        int CalcularPontos(int quantidade, int tamanho, int multiplicador);
     }
 }

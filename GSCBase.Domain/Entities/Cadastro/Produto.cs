@@ -7,8 +7,9 @@ namespace GSCBase.Domain.Entities.Cadastro
     {
         public string Rotulo { get; set; }
         public int Tamanho { get; set; }
+        public int Multiplicador { get; set; }
         public Produto() { }
-        public Produto(string rotulo, int tamanho, ApplicationUser user)
+        public Produto(string rotulo, int tamanho, int multiplicador, ApplicationUser user)
         {
             if (string.IsNullOrEmpty(rotulo))
             {
@@ -17,10 +18,11 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Rotulo = rotulo;
             Tamanho = tamanho;
+            Multiplicador = multiplicador;
             SetUserCreate(user);
         }
 
-        public void Alterar(string rotulo, int tamanho, ApplicationUser applicationUser)
+        public void Alterar(string rotulo, int tamanho, int multiplicador, ApplicationUser applicationUser)
         {
             if (string.IsNullOrEmpty(rotulo))
             {
@@ -29,6 +31,8 @@ namespace GSCBase.Domain.Entities.Cadastro
 
             Rotulo = rotulo;
             Tamanho = tamanho;
+            Multiplicador = multiplicador;
+
             SetUserAlter(applicationUser);
         }
     }
