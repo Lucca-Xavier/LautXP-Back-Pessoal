@@ -49,6 +49,25 @@ namespace GSCBase.Api.Controllers
             return Ok(venda);
         }
 
+
+        [HttpGet("buscar")]
+        public IActionResult BuscarClientes(string filtro)
+        {
+            var clientes = clienteService.Get(c => c.Nome.Contains(filtro) || c.Cpf.Contains(filtro) && c.IsActive)
+                .Select(x => new ClienteModel
+                {
+                    Id = x.Id,
+                    Nome = x.Nome,
+                    Cpf = x.Cpf,
+                    Pontos = x.Pontos,
+                    Nascimento = x.Nascimento,
+                }).ToList();
+
+            return Ok(clientes);
+        }
+
+
+
         [HttpPost]
         public IActionResult Post([FromBody] VendaModel model)
         {
